@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Sayang! 🎂</title>
+    <style>
+        /* Reset dan background */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Georgia', serif;
+            cursor: default;
+        }
+
+        /* ===== RAMA-RAMA ===== */
+        .butterfly {
+            position: absolute;
+            font-size: 35px;
+            pointer-events: none;
+            animation: flyButterfly linear forwards;
+            z-index: 10;
+        }
+
+        @keyframes flyButterfly {
+            0% {
+                opacity: 0;
+                transform: translate(0, 0) scale(0.5) rotate(0deg);
+            }
+            10% {
+                opacity: 1;
+                transform: translate(50px, -30px) scale(1) rotate(10deg);
+            }
+            30% {
+                transform: translate(200px, -100px) scale(1.1) rotate(-5deg);
+            }
+            50% {
+                transform: translate(400px, -50px) scale(1) rotate(15deg);
+            }
+            70% {
+                transform: translate(600px, -150px) scale(1.1) rotate(-10deg);
+            }
+            90% {
+                opacity: 1;
+                transform: translate(800px, -80px) scale(1) rotate(5deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(1000px, -200px) scale(0.5) rotate(20deg);
+            }
+        }
+
+        /* ===== BUNGA LILY ===== */
+        .lily {
+            position: absolute;
+            font-size: 50px;
+            pointer-events: none;
+            z-index: 5;
+            animation: floatLily 8s ease-in-out infinite;
+        }
+
+        @keyframes floatLily {
+            0% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-300px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* ===== POPUP UTAMA ===== */
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: rgba(255, 255, 255, 0.96);
+            padding: 50px 70px;
+            border-radius: 50px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            z-index: 100;
+            border: 6px solid #FF6B9D;
+            max-width: 90%;
+            transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .popup.show {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .popup .heart-icon {
+            font-size: 60px;
+            animation: heartbeat 1.2s infinite;
+            display: block;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.3); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.2); }
+        }
+
+        .popup h1 {
+            font-size: 3.5em;
+            color: #FF1493;
+            margin: 15px 0 10px;
+            text-shadow: 3px 3px 0px rgba(255, 105, 180, 0.3);
+            font-family: 'Georgia', serif;
+        }
+
+        .popup .sub-text {
+            font-size: 1.3em;
+            color: #555;
+            margin: 10px 0;
+        }
+
+        .popup .lily-icon {
+            font-size: 40px;
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        .popup .love-note {
+            font-size: 1.1em;
+            color: #888;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        /* ===== BUNGA LILY DI POPUP ===== */
+        .popup-lilies {
+            font-size: 35px;
+            letter-spacing: 15px;
+            margin-top: 10px;
+        }
+
+        /* ===== CONFETTI EFFECT ===== */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: confettiFall linear forwards;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            .popup {
+                padding: 30px 20px;
+            }
+            .popup h1 {
+                font-size: 2em;
+            }
+            .butterfly {
+                font-size: 25px;
+            }
+            .lily {
+                font-size: 35px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== POPUP ===== -->
+    <div class="popup" id="popup">
+        <span class="heart-icon">❤️</span>
+        <h1>🎂 Happy Birthday Sayangku! 🎂</h1>
+        <div class="popup-lilies">
+            🌸 🌺 🌸
+        </div>
+        <p class="sub-text">
+            <span class="lily-icon">🌸</span> 
+            Semoga Panjang Umur Sihat Selalu 
+            <span class="lily-icon">🌸</span>
+        </p>
+        <p class="sub-text" style="font-size: 1.5em; color: #FF1493;">
+            💖 I Love You! 💖
+        </p>
+        <p class="love-note">
+            "Setiap langkah mu di penuhi doa dari ku..."
+        </p>
+        <div style="margin-top: 15px; font-size: 30px;">
+            🦋 ✨ 🦋
+        </div>
+    </div>
+
+    <script>
+        // =====================================================
+        // 1. FUNGSI CIPTA RAMA-RAMA (32 EKOR)
+        // =====================================================
+        function createButterfly() {
+            const butterfly = document.createElement('div');
+            butterfly.className = 'butterfly';
+            butterfly.textContent = '🦋';
+
+            // Position random
+            const startX = Math.random() * window.innerWidth;
+            const startY = Math.random() * window.innerHeight;
+            butterfly.style.left = startX + 'px';
+            butterfly.style.top = startY + 'px';
+
+            // Saiz random
+            const size = 28 + Math.random() * 30;
+            butterfly.style.fontSize = size + 'px';
+
+            // Kelajuan random
+            const duration = 8 + Math.random() * 6;
+            butterfly.style.animationDuration = duration + 's';
+
+            document.body.appendChild(butterfly);
+
+            setTimeout(() => {
+                butterfly.remove();
+            }, duration * 1000 + 500);
+        }
+
+        // =====================================================
+        // 2. FUNGSI CIPTA BUNGA LILY
+        // =====================================================
+        function createLily() {
+            const lily = document.createElement('div');
+            lily.className = 'lily';
+            lily.textContent = '🌸';
+
+            const startX = Math.random() * window.innerWidth;
+            const startY = window.innerHeight + 50;
+            lily.style.left = startX + 'px';
+            lily.style.top = startY + 'px';
+
+            const size = 40 + Math.random() * 40;
+            lily.style.fontSize = size + 'px';
+
+            const duration = 6 + Math.random() * 4;
+            lily.style.animationDuration = duration + 's';
+
+            document.body.appendChild(lily);
+
+            setTimeout(() => {
+                lily.remove();
+            }, duration * 1000 + 500);
+        }
+
+        // =====================================================
+        // 3. FUNGSI CIPTA CONFETTI
+        // =====================================================
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+
+            const colors = ['#FF6B9D', '#FFB6C1', '#FF1493', '#FF69B4', '#FFC0CB', '#FF85A2'];
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+
+            const startX = Math.random() * window.innerWidth;
+            confetti.style.left = startX + 'px';
+            confetti.style.top = '-10px';
+
+            const size = 6 + Math.random() * 10;
+            confetti.style.width = size + 'px';
+            confetti.style.height = size + 'px';
+
+            const duration = 4 + Math.random() * 4;
+            confetti.style.animationDuration = duration + 's';
+
+            document.body.appendChild(confetti);
+
+            setTimeout(() => {
+                confetti.remove();
+            }, duration * 1000 + 500);
+        }
+
+        // =====================================================
+        // 4. TUNJUKKAN POPUP LEPAS 2.5 SAAT
+        // =====================================================
+        setTimeout(() => {
+            const popup = document.getElementById('popup');
+            popup.classList.add('show');
+
+            // ===== KELUARKAN 32 EKOR RAMA-RAMA =====
+            for (let i = 0; i < 32; i++) {
+                setTimeout(() => {
+                    createButterfly();
+                }, i * 300);
+            }
+
+            // ===== KELUARKAN BUNGA LILY =====
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    createLily();
+                }, i * 400 + 1000);
+            }
+
+            // ===== KELUARKAN CONFETTI =====
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    createConfetti();
+                }, i * 150 + 500);
+            }
+
+            // ===== TERUSKAN RAMA-RAMA =====
+            setInterval(() => {
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => createButterfly(), i * 200);
+                }
+            }, 3000);
+
+            // ===== TERUSKAN BUNGA LILY =====
+            setInterval(() => {
+                for (let i = 0; i < 2; i++) {
+                    setTimeout(() => createLily(), i * 300);
+                }
+            }, 5000);
+
+            // ===== TERUSKAN CONFETTI =====
+            setInterval(() => {
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(() => createConfetti(), i * 100);
+                }
+            }, 3000);
+
+        }, 2500);
+
+        // ===== EFEK AWAL =====
+        for (let i = 0; i < 8; i++) {
+            setTimeout(() => createButterfly(), i * 200);
+        }
+
+        for (let i = 0; i < 5; i++) {
+            setTimeout(() => createLily(), i * 300 + 500);
+        }
+    </script>
+</body>
+</html>
